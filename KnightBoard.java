@@ -1,11 +1,20 @@
 public class KnightBoard{
   private int[][] board;
+  //2D array to represent the board
+
+  private int rows;
+  //store the number of rows in the board
+
+  private int cols;
+  //store the number of cols in the board
 
 
   // @throws IllegalArgumentException when either parameter is <= 0.
   // Initialize the board to the correct size and make them all 0's
   public KnightBoard(int startingRows,int startingCols){
     board = new int[startingRows][startingCols];
+    rows = startingRows;
+    cols = startingCols;
   }
 
 
@@ -33,7 +42,19 @@ public class KnightBoard{
   //  8  9 10 12
   // 13 14  5 16
   public String toString() {
-    return "";
+    String output = "";
+    for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+        if(rows * cols >= 10 && board[row][col] < 10){
+          output += " " + board[row][col];
+        }else{
+          output += board[row][col];
+        }
+        output += " ";
+      }
+      output += "\n";
+    }
+    return output;
   }
 
   // Modifies the board by labeling the moves from 1 (at startingRow,startingCol) up to the area of the board in proper knight move steps.
