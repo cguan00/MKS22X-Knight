@@ -64,7 +64,6 @@ public class KnightBoard{
     return output;
   }
 
-
   public boolean isEmpty(){
     for(int row = 0; row < board.length; row++){
       for(int col = 0; col < board[row].length; col++){
@@ -73,6 +72,25 @@ public class KnightBoard{
         }
       }
     }
+    return true;
+  }
+
+  public boolean addKnight(int row, int col, int numMoves){
+    if(row < 0 || col < 0){
+      return false;//row or col cannot be negative
+    }
+    if(row > board.length || col > board[row].length){
+      return false;//cannot be out of bounds of the dimensions of the board
+    }
+    if(board[row][col] == 0){
+      board[row][col] = numMoves;//keep track of what move number you are on
+      return true;
+    }
+    return false;//can't add knight to square where you previously visited
+  }
+
+  public boolean removeKnight(int row, int col){
+    board[row][col] = 0;//removing Knight makes the square empty, so you set it to 0
     return true;
   }
 
@@ -88,10 +106,11 @@ public class KnightBoard{
     if(startingRow < 0 || startingCol < 0){
       throw new IllegalArgumentException();
     }
-    return true;
+    return solveHelper(0,0,0);
   }
 
-  public boolean solveHelper(int startingRow, int startingCol, int numMoves){
+  public boolean solveHelper(int row, int col, int numMoves){
+    int[][] possibleMoves = new int[8][2];
     return true;
   }
 
