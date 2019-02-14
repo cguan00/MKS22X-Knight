@@ -16,6 +16,7 @@ public class Driver{
     }
 
     System.out.println(board1);
+    System.out.println(board1.isEmpty());//should be true
     System.out.println("");
     System.out.println(board2);
   }
