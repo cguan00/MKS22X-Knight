@@ -48,16 +48,13 @@ public class KnightBoard{
     String output = "";
     for(int row = 0; row < board.length; row++){
       for(int col = 0; col < board[row].length; col++){
-        if(rows * cols <= 10 && board[row][col] == 0){
-          output += "_";
-        }
         if(rows * cols >= 10 && board[row][col] < 10){
-          if(board[row][col] == 0){
-            output += "_";
-          } else{
-            output += " " + board[row][col];
-          }
-        }else {
+          output += " ";
+        }
+        if(board[row][col] == 0){
+          // output += "_";
+          output += board[row][col];//easier to debug if you see the number
+        }else{
           output += board[row][col];
         }
         output += " ";
@@ -67,16 +64,36 @@ public class KnightBoard{
     return output;
   }
 
+
+  public boolean isEmpty(){
+    for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+        if(board[row][col] != 0){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   // Modifies the board by labeling the moves from 1 (at startingRow,startingCol) up to the area of the board in proper knight move steps.
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   // @returns true when the board is solvable from the specified starting position
   public boolean solve(int startingRow, int startingCol){
+    if(!isEmpty()){
+      throw new IllegalStateException();
+    }
+    if(startingRow < 0 || startingCol < 0){
+      throw new IllegalArgumentException();
+    }
     return true;
   }
 
-
+  public boolean solveHelper(int startingRow, int startingCol, int numMoves){
+    return true;
+  }
 
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
