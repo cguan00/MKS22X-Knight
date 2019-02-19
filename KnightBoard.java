@@ -90,6 +90,15 @@ public class KnightBoard{
   }
 
 
+  public void clear(){
+    for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+        board[row][col] = 0;
+      }
+    }
+  }
+
+
   // Modifies the board by labeling the moves from 1 (at startingRow,startingCol) up to the area of the board in proper knight move steps.
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
@@ -131,7 +140,28 @@ public class KnightBoard{
   //  or out of bounds.
   // @returns the number of solutions from the starting position specified
   public int countSolutions(int startingRow, int startingCol){
-    return 0;
+    clear();
+    if(!isEmpty()){
+      throw new IllegalStateException();
+    }
+    if(startingRow < 0 || startingCol < 0 || startingRow >= board.length || startingCol >= board[startingRow].length){
+      throw new IllegalArgumentException();
+    }
+    return countHelper(startingRow, startingCol, 1);
+  }
+
+  public int countHelper(int row, int col, int level){
+    if(level > (board.length * board[0].length)){
+      return 1;//filled board, so it's a solution. add one to count
+    }
+    int count = 0;
+    for(int i = 0; i < moves.length; i++){//loop through moves
+      if(move(row, col, level)){
+        count += countHelper(row + moves[i][0], col + moves[i][1], level + 1);//adds to count
+        board[row][col] = 0;//removes knight
+      }
+    }
+    return count;
   }
 
 }
