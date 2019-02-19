@@ -56,8 +56,7 @@ public class KnightBoard{
           output += " ";
         }
         if(board[row][col] == 0){
-          // output += "_";
-          output += board[row][col];//easier to debug if you see the number
+          output += "_";
         }else{
           output += board[row][col];
         }
@@ -79,46 +78,53 @@ public class KnightBoard{
     return true;
   }
 
-  public boolean addKnight(int row, int col, int numMoves){
-    if(row < 0 || col < 0){
-      return false;//row or col cannot be negative
+  public boolean move(int row, int col, int level){
+    if(row < 0 || col < 0 || row >= board.length || col >= board[row].length){
+      return false;//out of bounds, return false
     }
-    if(row > board.length || col > board[row].length){
-      return false;//cannot be out of bounds of the dimensions of the board
+    if(board[row][col] != 0){
+      return false;//cannot visit the same square twice
     }
-    if(board[row][col] == 0){
-      board[row][col] = numMoves;//keep track of what move number you are on
-      return true;
-    }
-    return false;//can't add knight to square where you previously visited
-  }
-
-  public boolean removeKnight(int row, int col){
-    board[row][col] = 0;//removing Knight makes the square empty, so you set it to 0
+    board[row][col] = level;//move knight here
     return true;
   }
+
 
   // Modifies the board by labeling the moves from 1 (at startingRow,startingCol) up to the area of the board in proper knight move steps.
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   // @returns true when the board is solvable from the specified starting position
+  /**
+  *@throws IllegalStateException when the board contains non-zero values.
+  *@throws IllegalArgumentException when either parameter is negative or out of bounds.
+  */
   public boolean solve(int startingRow, int startingCol){
     if(!isEmpty()){
       throw new IllegalStateException();
     }
-    if(startingRow < 0 || startingCol < 0 || startingRow > board.length || startingCol > board[startingRow].length){
+    if(startingRow < 0 || startingCol < 0 || startingRow >= board.length || startingCol >= board[startingRow].length){
       throw new IllegalArgumentException();
     }
-    if(startingRow > board.length || startingCol < 0){
-      throw new IllegalArgumentException();
-    }
-    return solveHelper(startingRow,startingCol,1);
+    return solveHelper(startingRow, startingCol, 1);//call helper method. start counting levels at 1
   }
 
-  public boolean solveHelper(int row, int col, int level){
-    return true;
+  //helper method for solve
+  private boolean solveHelper(int row, int col, int level){
+    if(level > (board.length * board[0].length)){
+      return true;//filled up board (visited all squares), return true
+    }
+    for (int i = 0; i < moves.length; i++){//loop through possible moves
+      if(move(row, col, level)){//if successfully moved knight
+        if(solveHelper(row + moves[i][0], col + moves[i][1], level + 1)){
+          return true;//recursive call
+        }
+        board[row][col] = 0;//try different position
+      }
+    }
+    return false;
   }
+
 
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
@@ -127,9 +133,5 @@ public class KnightBoard{
   public int countSolutions(int startingRow, int startingCol){
     return 0;
   }
-
-  // Suggestion:
-  // private boolean solveH(int row ,int col, int level)
-  // level is the # of the knight
 
 }
