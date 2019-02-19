@@ -8,6 +8,9 @@ public class KnightBoard{
   private int cols;
   //store the number of cols in the board
 
+  private int[][] moves;
+  //keep track of the different moves the knight can make
+
 
   // @throws IllegalArgumentException when either parameter is <= 0.
   // Initialize the board to the correct size and make them all 0's
@@ -18,6 +21,7 @@ public class KnightBoard{
     board = new int[startingRows][startingCols];
     rows = startingRows;
     cols = startingCols;
+    moves = new int[][] {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-2, -2}};
   }
 
 
@@ -103,14 +107,16 @@ public class KnightBoard{
     if(!isEmpty()){
       throw new IllegalStateException();
     }
-    if(startingRow < 0 || startingCol < 0){
+    if(startingRow < 0 || startingCol < 0 || startingRow > board.length || startingCol > board[startingRow].length){
       throw new IllegalArgumentException();
     }
-    return solveHelper(0,0,0);
+    if(startingRow > board.length || startingCol < 0){
+      throw new IllegalArgumentException();
+    }
+    return solveHelper(startingRow,startingCol,1);
   }
 
-  public boolean solveHelper(int row, int col, int numMoves){
-    int[][] possibleMoves = new int[8][2];
+  public boolean solveHelper(int row, int col, int level){
     return true;
   }
 
