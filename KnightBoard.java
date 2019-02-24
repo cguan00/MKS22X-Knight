@@ -11,6 +11,8 @@ public class KnightBoard{
   private int[][] moves;
   //keep track of the different moves the knight can make
 
+  private int[][] outgoing;
+  //keeps track of number of possible outgoing moves from each square
 
   // @throws IllegalArgumentException when either parameter is <= 0.
   // Initialize the board to the correct size and make them all 0's
@@ -22,6 +24,7 @@ public class KnightBoard{
     rows = startingRows;
     cols = startingCols;
     moves = new int[][] {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-2, -2}};
+    outgoing = new int[startingRows][startingCols]; 
   }
 
 
