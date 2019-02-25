@@ -58,29 +58,6 @@ public class KnightBoard{
     return output;
   }
 
-  // blank boards display 0's as underscores
-  // you get a blank board if you never called solve or
-  // when there is no solution
-
-  // Single spaces between numbers, but leading spaces on single digit numbers:
-  //  1  2  5
-  //  3  4  6
-  //  7  8  9
-  //
-  // Which is equivalant to: " 1  2  5\n 3  4  6\n 7  8  9\n"
-  //
-  // When there are two digit numbers (rows*cols >= 10) Put a leading space in front of single digit numbers:
-  // (spaces replaced with _ to show the difference)
-  // _1 _2 15 _6
-  // _3 _4 _7 11
-  // _8 _9 10 12
-  // 13 14 _5 16
-  //
-  // So it looks like this:
-  //  1  2 15  6
-  //  3  4  7 11
-  //  8  9 10 12
-  // 13 14  5 16
   public String toString() {
     String output = "";
     for(int row = 0; row < board.length; row++){
