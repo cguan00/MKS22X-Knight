@@ -23,49 +23,25 @@ public class KnightBoard{
     board = new int[startingRows][startingCols];
     rows = startingRows;
     cols = startingCols;
-    moves = new int[][] {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-2, -2}};
+    moves = new int[][] {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}};
     outgoing = new int[startingRows][startingCols];
   }
 
   public void fillOutGoingMoves(){
-    //loop through all the squares
     for(int i = 0; i < outgoing.length; i++){
-      for(int j = 0; j < outgoing[0].length; j++){
-        if(i > 1 && i < outgoing.length - 2 && j > 1 && j < outgoing[0].length - 2){
+      for(int j = 0; j < outgoing[i].length; j++){
+        if(i > 1 && i < outgoing.length - 2 && j > 1 && j < outgoing[i].length - 2){
           outgoing[i][j] = 8;//more than two sqares in all directions, so all moves are possible
-        }
-        if((i == 0 && j == 0) || (i == outgoing.length - 1 && j == 0) || (i == outgoing.length - 1 && j == outgoing[0].length - 1) || (i == 0 && j == outgoing[0].length - 1)){
-          outgoing[i][j] = 2;
-        }
-        if(i > 1 && i < outgoing.length - 2 && j == 0){
-          outgoing[i][j] = 4;
-        }
-        if(i > 1 && i < outgoing.length - 2 && j == outgoing[0].length - 1){
-          outgoing[i][j] = 4;
-        }
-        if(i == 0 && j > 1 && j < outgoing.length - 2){
-          outgoing[i][j] = 4;
-        }
-        if(i == outgoing.length - 1 && j > 1 && j < outgoing.length - 2){
-          outgoing[i][j] = 4;
-        }
-        if(i == 0 && j == 1){
-          outgoing[i][j] = 3;
-        }
-        if(i == 1 && j == 0){
-          outgoing[i][j] = 3;
-        }
-        if(i == outgoing.length - 2 && j == 0){
-          outgoing[i][j] = 3;
-        }
-        if(i == outgoing.length - 1 && j == 1){
-          outgoing[i][j] = 3;
-        }
-        if(i == 0 && j == outgoing[0].length - 2){
-          outgoing[i][j] = 3;
-        }
-        if(i == 1 && j == outgoing[0].length - 1){
-          outgoing[i][j] = 3;
+        } else{
+          int count = 0;
+          for(int k = 0; k < moves.length; k++){
+            int row = i + moves[k][0];//store the row value of that possible move from the square i, j
+            int col = j + moves[k][1];//store the col value of that possible move from the square i, j
+            if(!(row < 0 || col < 0 || row >= board.length || col >= board[i].length)){//if you dont go out of bounds
+              count++;//a possible move, so you add one to counter variable
+            }
+          }
+          outgoing[i][j] = count;//set this square to hold the number of possible moves
         }
       }
     }
@@ -75,7 +51,7 @@ public class KnightBoard{
     String output = "";
     for(int row = 0; row < outgoing.length; row++){
       for(int col = 0; col < outgoing[row].length; col++){
-        output += outgoing[row][col];
+        output += outgoing[row][col] + " ";
       }
       output += "\n";
     }
