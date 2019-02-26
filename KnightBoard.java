@@ -47,6 +47,13 @@ public class KnightBoard{
     }
   }
 
+  public int[][] myMoves(int r, int c){
+    int[][] myMoves = new int[outgoing[r][c]][];
+    for(int i = 0; i < myMoves.length; i++){
+    }
+    return myMoves;
+  }
+
   public String movesToStringDebug() {
     String output = "";
     for(int row = 0; row < outgoing.length; row++){
