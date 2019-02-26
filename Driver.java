@@ -48,13 +48,16 @@ public class Driver{
     // System.out.println(board7.solve(0, 0));
     // System.out.println(board7);
     //
-    // System.out.println(board1.countSolutions(0, 0));
+    System.out.println(board1.countSolutions(0, 0));
     // System.out.println(board2.countSolutions(0, 0));
     // System.out.println(board3.countSolutions(0, 0));
     // // System.out.println(board4.countSolutions(0, 0));
     // System.out.println(board5.countSolutions(0, 0));
     // // System.out.println(board7.countSolutions(0, 0));
 
+    for(int i = 0; i < 5; i++){
+      KnightBoard.runTest(i);
+    }
 
   }
 }
