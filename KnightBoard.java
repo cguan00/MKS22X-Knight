@@ -168,15 +168,20 @@ public class KnightBoard{
   }
 
   public int countHelper(int row, int col, int level){
-    if(level > (board.length * board[0].length)){
+    if(row < 0 || col < 0 || row >= board.length || col >= board[row].length){
+      return 0;//cannot go out of bounds
+    }
+    if (board[row][col] != 0){
+      return 0;//cannot visit square that you have already been at
+    }
+    if(level == (board.length * board[0].length)){
       return 1;//filled board, so it's a solution. add one to count
     }
     int count = 0;
     for(int i = 0; i < moves.length; i++){//loop through moves
-      if(move(row, col, level)){
-        count += countHelper(row + moves[i][0], col + moves[i][1], level + 1);//adds to count
-        board[row][col] = 0;//removes knight
-      }
+      board[row][col] = level;
+      count += countHelper(row + moves[i][0], col + moves[i][1], level + 1);//adds to count
+      board[row][col] = 0;//removes knight
     }
     return count;
   }
